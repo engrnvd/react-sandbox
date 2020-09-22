@@ -1,0 +1,14 @@
+a {
+    display: block;
+    padding: 0.5rem 0;
+    text-decoration: none;
+}
+
+#root {
+    margin: 1rem auto;
+    width: 90vw;
+}
+
+div {
+    margin-top: 1.5rem;
+}
