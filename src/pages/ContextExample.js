@@ -1,7 +1,7 @@
-import React, {useContext, useState} from "react";
+import React, {createContext, useContext, useState} from "react";
 
 // create a context / store
-const ThemeContext = React.createContext();
+const ThemeContext = createContext();
 const ThemeProvider = function (props) {
     let [theme, setTheme] = useState('light');
 
@@ -20,7 +20,7 @@ const ThemeProvider = function (props) {
 }
 
 // create a second context / store
-const UserContext = React.createContext();
+const UserContext = createContext();
 const UserProvider = function (props) {
     let [name, setName] = useState('Naveed');
 
@@ -61,30 +61,23 @@ class ChildComp2 extends React.Component {
 
 // modifying the context data
 function Toggler() {
+    let theme = useContext(ThemeContext);
     return (
-        <ThemeContext.Consumer>
-            {theme => (<button onClick={theme.toggle}>Toggle Theme</button>)}
-        </ThemeContext.Consumer>
+        <button onClick={theme.toggle}>Toggle Theme</button>
     )
 }
 
 function NameChanger(props) {
-    return (
-        <UserContext.Consumer>
-            {
-                user => {
-                    function update(e) {
-                        user.setName(e.target.value)
-                    }
+    let user = useContext(UserContext);
 
-                    return (
-                        <div>
-                            <input type="text" onChange={update} value={user.name}/>
-                        </div>
-                    )
-                }
-            }
-        </UserContext.Consumer>
+    function update(e) {
+        user.setName(e.target.value)
+    }
+
+    return (
+        <div>
+            <input type="text" onChange={update} value={user.name}/>
+        </div>
     )
 }
 
